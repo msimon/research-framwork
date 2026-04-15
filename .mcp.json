@@ -1,0 +1,23 @@
+{
+  "mcpServers": {
+    "pubmed": {
+      "command": "npx",
+      "args": ["-y", "@cyanheads/pubmed-mcp-server"]
+    },
+    "clinicaltrials": {
+      "command": "npx",
+      "args": ["-y", "clinicaltrialsgov-mcp-server"]
+    },
+    "openfda": {
+      "command": "npx",
+      "args": ["-y", "@uh-joan/fda-mcp-server"],
+      "env": {
+        "OPENFDA_API_KEY": "${OPENFDA_API_KEY}"
+      }
+    },
+    "sec-edgar": {
+      "command": "uvx",
+      "args": ["sec-edgar-mcp"]
+    }
+  }
+}
