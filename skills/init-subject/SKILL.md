@@ -17,10 +17,12 @@ Create a new research subject folder at `$PWD/$ARGUMENTS/` and populate `00-unde
 
 ## Part 1 — Scaffold (silent, mechanical)
 
-1. Create directory structure: `$PWD/$ARGUMENTS/topics/`, `$PWD/$ARGUMENTS/synthesis/`.
-2. Read templates from `${CLAUDE_PLUGIN_ROOT}/templates/subject/` — there are **five**: `00-understanding.md`, `00-open-questions.md`, `00-lexicon.md`, `01-topics.md`, `CLAUDE.md`.
-3. Substitute `{subject}` → `$ARGUMENTS`, `{date}` → today's date (ISO).
-4. Write the five populated template files into `$PWD/$ARGUMENTS/`. The `CLAUDE.md` is auto-loaded by Claude Code when the user is `cd`'d into the subject — it contains the active-session protocol that survives context compaction.
+1. **Check for git.** If `$PWD` is not inside a git repository (`git rev-parse --is-inside-work-tree` fails), initialize one: `git init`. This ensures all research has version history from the start.
+2. Create directory structure: `$PWD/$ARGUMENTS/topics/`, `$PWD/$ARGUMENTS/synthesis/`.
+3. Read templates from `${CLAUDE_PLUGIN_ROOT}/templates/subject/` — there are **five**: `00-understanding.md`, `00-open-questions.md`, `00-lexicon.md`, `01-topics.md`, `CLAUDE.md`.
+4. Substitute `{subject}` → `$ARGUMENTS`, `{date}` → today's date (ISO).
+5. Write the five populated template files into `$PWD/$ARGUMENTS/`. The `CLAUDE.md` is auto-loaded by Claude Code when the user is `cd`'d into the subject — it contains the active-session protocol that survives context compaction.
+6. **Commit:** `git add $ARGUMENTS/ && git commit -m "rf: init subject $ARGUMENTS"`
 
 ## Part 2 — Subject judgment (silent, internal)
 

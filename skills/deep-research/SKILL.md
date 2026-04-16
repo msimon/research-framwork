@@ -86,7 +86,9 @@ Every `$PWD/...` reference below means `<subject-dir>/...`.
 
    Don't block on this — proceed with the session regardless. It's guidance, not a requirement.
 
-7. **Treat the sharpened seed as turn 1** and proceed to "During the session".
+7. **Commit:** `git add <subject-dir>/ && git commit -m "rf: open deep-research session on <slug> — <seed-slug>"`
+
+8. **Treat the sharpened seed as turn 1** and proceed to "During the session".
 
 ## During the session (EVERY turn after setup)
 
@@ -123,11 +125,13 @@ For each user message while the session is open:
 6. **Respond to the user with:**
    - The findings (concise — they'll see the full version in the file). Define any new term inline on first use.
    - Your `My read` interpretation
-   - **ONE** follow-up question that sharpens the inquiry. Not three. Not a list. One.
+   - **ONE** follow-up question that sharpens the inquiry. Not three. Not a list. One. Always prefix it with "Follow-up Question:" to make it clear it's a question, not a statement.
 
 7. **Update the session marker.** Increment `turn_count` and set `last_turn` to the current ISO timestamp in `$PWD/.rf-session.json`. This is how `/rf:resume` knows where the session stands.
 
-8. **Every ~5 turns, mirror outward:**
+8. **Commit:** `git add <subject-dir>/ && git commit -m "rf: deep-research <slug> turn N — <short paraphrase>"` where N is the turn number and `<short paraphrase>` matches the turn block header.
+
+9. **Every ~5 turns, mirror outward:**
    - Propagate any new Insights to `<subject-dir>/00-understanding.md` under the topic section (only if they're firm enough to be beliefs, not findings).
    - Propagate Open threads to `<subject-dir>/00-open-questions.md` tagged `[<slug>]`.
 
@@ -146,10 +150,16 @@ Proactively run this check:
 - When the user seems to be wrapping up ("makes sense", "I think I get it", "ok"), OR
 - When you notice you've been going in circles
 
-Ask:
-> "Stopping-rule check: can you explain the core of this in 3 minutes to a smart non-expert? Do you know the 5 main players? Do you know the unit economics or the key mechanism? Have you parked the rest in open-questions? If yes to all, we can close this dive."
+Summarize what the session has covered so far (major findings, key threads), then name the open threads that remain. Ask:
 
-If the user agrees it's done, run **session close**.
+> "We've covered [concise recap of ground covered]. We can keep going on the same thread if there's more to pull on.
+>
+> We also have these open threads parked: [list them]. Want to dig into any of these, or save them for a future session?"
+
+Three outcomes:
+- **Keep going on the current thread** — the user wants to go deeper on what they were already exploring. Continue the session as normal.
+- **Pivot to an open thread** — they pick one from the parked list. Continue the session on that thread (still the same session, just a pivot).
+- **Done** — they want to park everything. Run **session close**.
 
 ## Session close
 
@@ -158,7 +168,8 @@ If the user agrees it's done, run **session close**.
 3. **Promote Open threads** to `$PWD/00-open-questions.md` tagged `[<slug>]`.
 4. **Update `$PWD/01-topics.md`:** bump status. `landscape` → `deep-1`, `deep-1` → `deep-2`, etc. Count is total deep-dive files for this topic.
 5. **Delete `$PWD/.rf-session.json`.** The session is closed — the marker must go so future turns don't mistake this conversation for an ongoing session.
-6. **Close out the conversation** with:
+6. **Commit:** `git add <subject-dir>/ && git commit -m "rf: close deep-research session on <slug> — <turn_count> turns"`
+7. **Close out the conversation** with:
    - A 2-line recap of what was added to `00-understanding.md`
    - Suggested next moves: another `/rf:deep-research` on a sibling thread, a `/rf:landscape` of the sub-topic if one was spun off, or — if several topics have real depth now — `/rf:synthesize` (coming later).
 

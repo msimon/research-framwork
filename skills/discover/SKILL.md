@@ -61,10 +61,12 @@ Resolve `<subject-dir>`:
 
 6. **Append to `<subject-dir>/01-topics.md`** as new table rows. Preserve any existing rows. Set `status = discovered`. Don't overwrite the file.
 
-7. **Summarize to the user:** print the top 10 topics with their hooks (not all 15-30 — respect their attention). Group by category if that helps scannability. Ask:
+7. **Commit:** `git add <subject-dir>/01-topics.md && git commit -m "rf: discover topics for <subject>"`
+
+8. **Summarize to the user:** print the top 10 topics with their hooks (not all 15-30 — respect their attention). Group by category if that helps scannability. Ask:
    > "Which 2-3 should we `/rf:landscape` first? Reply with slugs — I'll run landscape on them in order without you having to re-invoke."
 
-8. **Auto-continue to `/rf:landscape` if the user picks topics.** When the user replies with one or more slugs:
+9. **Auto-continue to `/rf:landscape` if the user picks topics.** When the user replies with one or more slugs:
    - Validate each slug exists in `<subject-dir>/01-topics.md`.
    - Read `${CLAUDE_PLUGIN_ROOT}/skills/landscape/SKILL.md`.
    - For each slug in order: execute landscape's instructions against `<subject-dir>/topics/<slug>/`. Carry `<subject-dir>` through — don't try to `cd` (shell state doesn't persist).

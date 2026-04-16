@@ -31,9 +31,10 @@ Before responding to any user message in this subject:
      ```
    - Scan findings/response for new domain-specific terms → append to `00-lexicon.md` (Abbreviations / Terms & concepts / Entities tables). Skip duplicates.
    - Update `.rf-session.json`: increment `turn_count`, update `last_turn` timestamp.
+   - **Commit:** `git add . && git commit -m "rf: deep-research <slug> turn N — <short paraphrase>"`
    - Every ~5 turns: promote firm Insights to `00-understanding.md`, mirror Open threads to `00-open-questions.md` (tagged `[<slug>]`).
    - Respond to the user: findings summary + interpretation + **ONE** follow-up question. Define any new term inline on first mention — don't rely on the lexicon alone.
-   - Every ~10 turns OR when the user signals wrap-up: run the stopping-rule check (can you explain this in 3 min? know the 5 players? know the unit economics? parked the rest?).
+   - Every ~10 turns OR when the user signals wrap-up: run the stopping-rule check — recap what's been covered, name the remaining open threads, ask whether to keep going or park them.
 
 3. **Session close.** If the user invokes another `/rf:` skill, or says "stop" / "done" / "switch topics" / agrees to the stopping-rule check:
    - Write `## Session summary` at the top of the deep-dive file (3-6 bullets of firmest takeaways).
@@ -41,6 +42,7 @@ Before responding to any user message in this subject:
    - Promote Open threads to `00-open-questions.md` tagged `[<slug>]`.
    - Bump status in `01-topics.md`: `landscape` → `deep-1`, `deep-1` → `deep-2`, etc.
    - **Delete `.rf-session.json`.** Session is closed.
+   - **Commit:** `git add . && git commit -m "rf: close deep-research session on <slug>"`
 
 4. **If `.rf-session.json` does not exist**, treat the message as a normal skill invocation or free-form question. No special handling.
 

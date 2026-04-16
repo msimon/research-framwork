@@ -112,9 +112,11 @@ Every `$PWD/...` reference below means `<subject-dir>/...`.
 
 9. **Update `<subject-dir>/01-topics.md`:** change this topic's status from `discovered` to `landscape`. Leave other rows alone.
 
-10. **If sub-topics emerged** in the landscape's "Sub-topics worth splitting out" section, ask the user: "These sub-topics emerged — add them as new `discovered` rows in `01-topics.md`? (list them)" Only add if they confirm.
+10. **Commit:** `git add <subject-dir>/ && git commit -m "rf: landscape <slug>"`
 
-11. **Comprehension check (before any strategy questions).** The user just received dense expert material. Before asking them to form hypotheses or positions, make sure they can read the landscape. Report what was written and proactively flag the lexicon:
+11. **If sub-topics emerged** in the landscape's "Sub-topics worth splitting out" section, ask the user: "These sub-topics emerged — add them as new `discovered` rows in `01-topics.md`? (list them)" Only add if they confirm.
+
+12. **Comprehension check (before any strategy questions).** The user just received dense expert material. Before asking them to form hypotheses or positions, make sure they can read the landscape. Report what was written and proactively flag the lexicon:
 
     > "Landscape written. Files updated: [brief list].
     >
@@ -129,11 +131,11 @@ Every `$PWD/...` reference below means `<subject-dir>/...`.
 
     **Iterate until the user signals orientation.** If they ask what a term means, explain in plain language AND improve the lexicon entry inline (upgrade from a thin definition to a clearer one). If they point to a confusing step, re-explain and consider whether the landscape's `How it works` section needs editing for clarity — if yes, edit it. If they flag an assumption, add it to `00-open-questions.md` tagged `[<slug>]`.
 
-    Don't move to step 12 until the user says `clear`, `got it`, `move on`, or similar. This may take 2-5 turns. That's fine — comprehension is the point.
+    Don't move to step 13 until the user says `clear`, `got it`, `move on`, or similar. This may take 2-5 turns. That's fine — comprehension is the point.
 
-12. **Strategy-level questions (only after comprehension is settled).** Now ask 3 questions that force the user to form a position. Draw them from the user's End goal (founder → buyer hypothesis, wedge, defensibility; investor → market size sanity-check, exit paths; intellectual → most surprising finding, where sources disagree most). Wait for their response. Answers get appended to `<subject-dir>/00-understanding.md` under `## <topic>` as lines prefixed `User's read:`.
+13. **Strategy-level questions (only after comprehension is settled).** Now ask 3 questions that force the user to form a position. Draw them from the user's End goal (founder → buyer hypothesis, wedge, defensibility; investor → market size sanity-check, exit paths; intellectual → most surprising finding, where sources disagree most). Wait for their response. Answers get appended to `<subject-dir>/00-understanding.md` under `## <topic>` as lines prefixed `User's read:`.
 
-13. **Offer deep-research auto-continuation.** After their strategy-level answers are written, offer:
+14. **Offer deep-research auto-continuation.** After their strategy-level answers are written, offer:
 
     > "Want to go deeper on `<topic>` now? I can open a `/rf:deep-research` session.
     >

@@ -10,9 +10,9 @@ A Claude Code plugin for breadth-first domain research with conversational deep-
 /rf:landscape <slug>             # substantive overview of one area
 /rf:deep-research <slug> [q?]    # conversational deep-dive (session-based)
 /rf:resume                       # re-enter an active deep-research session after context loss
-# coming later:
-/rf:synthesize                   # specialist agents rank problems worth solving
-/rf:solution <problem>           # sketch existing solutions, differentiation, unit econ
+/rf:synthesize                   # rank problems worth solving across all researched topics
+/rf:solution <problem>           # map existing solutions, gaps, wedge options, unit econ
+/rf:pitch <problem> [investor|customer]  # generate slide deck (markdown → Google Slides)
 ```
 
 ## Install
@@ -56,19 +56,37 @@ claude --plugin-dir ~/code/rf
 
 # in Claude Code:
 /rf:init-subject rheumatology
-# (answer the framing question it asks you)
+# (answer the framing questions)
 
 /rf:discover
 # — produces 15-30 candidate topics in 01-topics.md
 
 /rf:landscape prior-auth
-# — reads, researches, writes topics/prior-auth/landscape.md,
-#   appends to 00-understanding.md, asks you 3 questions
+# — writes topics/prior-auth/landscape.md, updates understanding + lexicon
 
 /rf:deep-research prior-auth how does appeal workflow actually work at a mid-size rheum practice
-# — opens a SESSION. Every subsequent message is part of this dive until
-#   you invoke another /rf: skill or say "we're done".
+# — opens a SESSION. Every subsequent message is part of this dive.
+
+# when a problem jumps out of the deep-dive, go straight to solution:
+/rf:solution prior-auth practices lose $4M/yr to denials that overturn 82% on appeal
+
+# or survey all topics first, then pick:
+/rf:synthesize
+/rf:solution denial-economics
+
+# either path leads to pitch:
+/rf:pitch denial-economics investor
 ```
+
+### Pipeline
+
+```
+discover → landscape → deep-research ─┬→ synthesize → solution → pitch
+                                       │
+                                       └────────────→ solution → pitch
+```
+
+`/rf:synthesize` is the wide-angle lens (rank problems across topics). `/rf:solution` is where you commit to one problem. You can reach solution from either direction — synthesize isn't a gate.
 
 ## File layout of a subject
 
@@ -98,7 +116,7 @@ Long deep-research sessions can exceed Claude Code's context window and trigger 
 ## Design principles
 
 - **Research ≠ understanding.** `00-understanding.md` is for beliefs; topic files are raw research. Skills propose additions; you decide what becomes belief.
-- **Breadth before depth.** `/rf:discover` surfaces everything shallowly. `/rf:landscape` is the workhorse. `/rf:deep-research` is reserved for things that genuinely matter.
+- **Breadth before depth, but don't block on it.** `/rf:discover` surfaces everything shallowly. `/rf:landscape` is the workhorse. `/rf:deep-research` is reserved for things that genuinely matter. When a deep-dive surfaces a company idea, go straight to `/rf:solution` — you don't have to synthesize first.
 - **Conversation over dumps.** Deep-dives are sessions, not report-generation. Each turn sharpens one thread.
 - **Explicit stopping rules.** Deep-dives ask "can you explain this in 3 min? know the 5 players? know the unit economics?" — otherwise they recurse forever.
 - **Contradictions are signal.** `00-open-questions.md` captures them rather than hiding them in prose.
@@ -109,4 +127,4 @@ They clone the repo, install `node`/`uv`, (optionally) set `OPENFDA_API_KEY`, an
 
 ## Status
 
-`v0.1.0` — scaffold, `/rf:init-subject`, `/rf:discover`, `/rf:landscape`, `/rf:deep-research` shipped. `/rf:synthesize` and `/rf:solution` (with specialist sub-agents) to follow once real research has validated the upstream skills.
+`v0.3.0` — full pipeline: `/rf:init-subject`, `/rf:discover`, `/rf:landscape`, `/rf:deep-research`, `/rf:resume`, `/rf:synthesize`, `/rf:solution`, `/rf:pitch`. Google Slides generation self-bootstraps on first use (guides through MCP setup if not configured).
